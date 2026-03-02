@@ -1386,54 +1386,77 @@
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
 
 <script>
+    // 1. CONFIGURAÇÃO ESSENCIAL (Pegue no Console do Firebase -> Configurações do Projeto)
     const firebaseConfig = {
-        databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/"
+        apiKey: "COLE_SUA_API_KEY_AQUI", 
+        authDomain: "frequenciadecelula.firebaseapp.com",
+        databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/",
+        projectId: "frequenciadecelula",
+        storageBucket: "frequenciadecelula.appspot.com",
+        appId: "COLE_SEU_APP_ID_AQUI"
     };
-    firebase.initializeApp(firebaseConfig);
+
+    // Inicializa o Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
     const database = firebase.database();
 
-    // FUNÇÃO PARA SALVAR TODOS DE UMA VEZ
+    // 2. FUNÇÃO SALVAR (Mapeando os IDs do seu HTML)
     function salvarFirebase() {
-        const dadosGerais = {
-            oziel: {
-                lider: document.getElementById('lider_oziel').innerText,
-                tabela: document.getElementById('corpo_oziel').innerHTML
-            },
-            neto: {
-                lider: document.getElementById('lider_neto').innerText,
-                tabela: document.getElementById('corpo_neto').innerHTML
-            },
-            gabriel: {
-                lider: document.getElementById('lider_gabriel').innerText,
-                tabela: document.getElementById('corpo_gabriel').innerHTML
-            }
+        console.log("Iniciando processo de salvamento...");
+
+        // Função auxiliar para evitar erro se o ID não existir no HTML
+        const pegarConteudo = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.innerHTML : "";
         };
 
-        database.ref('discipulado_zoe/2026').set(dadosGerais)
-            .then(() => alert("✅ Todos os dados (Oziel, Neto e Gabriel) foram salvos!"))
-            .catch((e) => alert("❌ Erro ao salvar: " + e.message));
+        const dadosParaSalvar = {
+            oziel: {
+                lider: document.getElementById('lider_oziel')?.innerText || "NOME",
+                tabela: pegarConteudo('corpo_oziel') // ID do <tbody> da tabela do Oziel
+            },
+            neto: {
+                lider: document.getElementById('lider_neto')?.innerText || "NOME",
+                tabela: pegarConteudo('corpo_neto') // ID do <tbody> da tabela do Neto
+            },
+            gabriel: {
+                lider: document.getElementById('lider_gabriel')?.innerText || "NOME",
+                tabela: pegarConteudo('corpo_gabriel') // ID do <tbody> da tabela do Gabriel
+            },
+            data_atualizacao: new Date().toLocaleString('pt-BR')
+        };
+
+        // Envia para o Firebase
+        database.ref('dados_celula').set(dadosParaSalvar)
+            .then(() => {
+                alert("✨ GLÓRIA A DEUS! Dados salvos com sucesso!");
+            })
+            .catch((error) => {
+                alert("❌ Erro ao salvar: " + error.message);
+                console.error(error);
+            });
     }
 
-    // FUNÇÃO PARA CARREGAR TUDO AO ABRIR O SITE
+    // 3. FUNÇÃO CARREGAR (Executa ao abrir a página)
     window.onload = function() {
-        database.ref('discipulado_zoe/2026').once('value', (snapshot) => {
+        database.ref('dados_celula').once('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                // Carrega Oziel
-                if(data.oziel) {
+                if (data.oziel && document.getElementById('corpo_oziel')) {
                     document.getElementById('lider_oziel').innerText = data.oziel.lider;
                     document.getElementById('corpo_oziel').innerHTML = data.oziel.tabela;
                 }
-                // Carrega Neto
-                if(data.neto) {
+                if (data.neto && document.getElementById('corpo_neto')) {
                     document.getElementById('lider_neto').innerText = data.neto.lider;
                     document.getElementById('corpo_neto').innerHTML = data.neto.tabela;
                 }
-                // Carrega Gabriel
-                if(data.gabriel) {
+                if (data.gabriel && document.getElementById('corpo_gabriel')) {
                     document.getElementById('lider_gabriel').innerText = data.gabriel.lider;
                     document.getElementById('corpo_gabriel').innerHTML = data.gabriel.tabela;
                 }
+                console.log("Dados restaurados com sucesso!");
             }
         });
     };
@@ -1450,3 +1473,4 @@
 </div>
 
 </html>
+
