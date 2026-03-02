@@ -5,7 +5,22 @@
     <title>Frequência de Célula - DISCIPULADO ZOE</title>
     <style>
         body { font-family: Arial, sans-serif; background-image: url('zoe.jpg'); background-size: cover; background-attachment: fixed; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        .card { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    
+    /* Aumenta a largura para caber o zoom */
+    width: 95%; 
+    max-width: 500px; 
+    margin: 20px auto;
+
+    /* APLICA O ZOOM AQUI */
+    zoom: 120%; /* Aumenta tudo em 20% */
+    transform: scale(1.1); /* Alternativa para navegadores que não suportam zoom */
+    transform-origin: top center; /* Garante que o zoom cresça a partir do topo */
+}
         h1 { text-align: center; color: #6f009b; text-transform: uppercase; font-size: 18px; margin-bottom: 20px; border-bottom: 3px solid #1a3a5a; padding-bottom: 10px; }
         .tab-container { display: flex; border-bottom: 2px solid #ddd; margin-bottom: 20px; gap: 5px; overflow-x: auto; }
         .tab-btn { padding: 5px 52px; cursor: pointer; border: 1px solid #ddd; border-bottom: none; background: #f8f9fa; border-radius: 8px 8px 0 0; font-weight: bold; color: #555; white-space: nowrap; }
@@ -22,7 +37,24 @@
         th { background-color: #6f009b; color: white; text-transform: uppercase; font-size: 12px; padding: 8px; border: 1px solid #ccc; }
         td { border: 1px solid #ddd; padding: 6px; text-align: center; font-size: 11px; cursor: pointer; }
         .visitante-header { background-color: #6f009b !important; color: white !important; font-weight: bold; }
-        .btn-firebase { display: block; width: 100%; max-width: 200px; margin: 20px auto; background-color: #6f009b; color: white; border: none; padding: 10px; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        .btn-firebase {
+    display: block;
+    width: 250px;         /* Largura fixa para não esticar muito */
+    margin: 150px auto;    /* Aumentei o espaço de 20px para 40px */
+    padding: 15px;
+    background-color: #6f009b;
+    color: white;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 0px 0px rgba(255, 255, 255, 0);
+    
+    /* ISSO GARANTE QUE ELE APAREÇA MESMO COM ZOOM */
+    position: relative;
+    z-index: 100;
+}
     </style>
 </head>
 <body>
@@ -143,4 +175,3 @@
 </script>
 </body>
 </html>
-
