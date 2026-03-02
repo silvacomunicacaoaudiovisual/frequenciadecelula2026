@@ -12,7 +12,7 @@
         .tab-btn.active { background: #6f009b; color: white; border-color: #0099ff; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .mes-container { display: flex; gap: 10px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
+        .mes-container { display: flex; gap: 14px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
         .mes-btn { padding: 5px 8px; cursor: pointer; border: 1px solid #6f009b; background: white; border-radius: 12px; font-size: 9px; font-weight: bold; color: #6f009b; white-space: nowrap; }
         .mes-btn.active { background: #6f009b; color: white; }
         .mes-content { display: none; }
@@ -69,7 +69,7 @@
                 tabCont.innerHTML += `
                 <div id="${l}${m}" class="mes-content ${i===0?'active':''}">
                     <div class="info-header">
-                        <span>LÍDER: <strong contenteditable="true" id="lider_${l}_${m.toLowerCase()}">NOME</strong></span>
+                        <span>LÍDER EM TREINAMENTO: <strong contenteditable="true" id="lider_${l}_${m.toLowerCase()}">NOME</strong></span>
                         <span>QUARTA-FEIRA</span>
                     </div>
                     <table>
@@ -141,5 +141,6 @@
 </script>
 </body>
 </html>
+
 
 
