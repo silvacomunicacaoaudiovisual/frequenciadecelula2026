@@ -1382,85 +1382,61 @@
     <p class="footer-info">© DISCIPULADO ZOE - TODOS OS DIREITOS RESERVADOS..</p>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
 <script>
-function abrirAba(evt, nomeLider) {
-    var i, tabcontent, tablinks;
-    
-    // Esconde todos os conteúdos das abas de líderes
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
+    const firebaseConfig = {
+        databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // FUNÇÃO PARA SALVAR TODOS DE UMA VEZ
+    function salvarFirebase() {
+        const dadosGerais = {
+            oziel: {
+                lider: document.getElementById('lider_oziel').innerText,
+                tabela: document.getElementById('corpo_oziel').innerHTML
+            },
+            neto: {
+                lider: document.getElementById('lider_neto').innerText,
+                tabela: document.getElementById('corpo_neto').innerHTML
+            },
+            gabriel: {
+                lider: document.getElementById('lider_gabriel').innerText,
+                tabela: document.getElementById('corpo_gabriel').innerHTML
+            }
+        };
+
+        database.ref('discipulado_zoe/2026').set(dadosGerais)
+            .then(() => alert("✅ Todos os dados (Oziel, Neto e Gabriel) foram salvos!"))
+            .catch((e) => alert("❌ Erro ao salvar: " + e.message));
     }
 
-    // Remove a classe "active" de todos os botões
-    tablinks = document.getElementsByClassName("tab-btn");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    // Mostra a aba atual e adiciona classe active ao botão
-    document.getElementById(nomeLider).style.display = "block";
-    document.getElementById(nomeLider).classList.add("active");
-    evt.currentTarget.classList.add("active");
-}
-
-function abrirMes(evt, idMes) {
-    var i, mescontent, meslinks;
-    
-    // Pega o container pai para esconder apenas os meses do líder atual
-    var pai = evt.currentTarget.closest('.tab-content');
-    
-    mescontent = pai.getElementsByClassName("mes-content");
-    for (i = 0; i < mescontent.length; i++) {
-        mescontent[i].style.display = "none";
-        mescontent[i].classList.remove("active");
-    }
-
-    meslinks = pai.getElementsByClassName("mes-btn");
-    for (i = 0; i < meslinks.length; i++) {
-        meslinks[i].classList.remove("active");
-    }
-
-    document.getElementById(idMes).style.display = "block";
-    document.getElementById(idMes).classList.add("active");
-    evt.currentTarget.classList.add("active");
-}
-
-
-function alternarPresenca(celula) {
-    if (celula.innerHTML === "") {
-        celula.innerHTML = "✅";
-    } else if (celula.innerHTML === "✅") {
-        celula.innerHTML = "❌";
-    } else {
-        celula.innerHTML = "";
-    }
-}
-
-function salvarRelatorio() {
-    // Captura todo o conteúdo atual da página (com o que você editou)
-    const conteudoHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-    
-    // Cria um arquivo temporário para download
-    const blob = new Blob([conteudoHtml], { type: "text/html" });
-    const link = document.createElement("a");
-    
-    // Define o nome do arquivo que será baixado
-    link.download = "Relatorio_Celula_Atualizado.html";
-    link.href = window.URL.createObjectURL(blob);
-    link.click();
-    
-    alert("Relatório gerado! Verifique a sua pasta de Downloads.");
-}
-
-function alternarX(celula) {
-    if (celula.innerHTML.trim() === "X") {
-        celula.innerHTML = "";
-    } else {
-        celula.innerHTML = "X";
-    }
-}
+    // FUNÇÃO PARA CARREGAR TUDO AO ABRIR O SITE
+    window.onload = function() {
+        database.ref('discipulado_zoe/2026').once('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // Carrega Oziel
+                if(data.oziel) {
+                    document.getElementById('lider_oziel').innerText = data.oziel.lider;
+                    document.getElementById('corpo_oziel').innerHTML = data.oziel.tabela;
+                }
+                // Carrega Neto
+                if(data.neto) {
+                    document.getElementById('lider_neto').innerText = data.neto.lider;
+                    document.getElementById('corpo_neto').innerHTML = data.neto.tabela;
+                }
+                // Carrega Gabriel
+                if(data.gabriel) {
+                    document.getElementById('lider_gabriel').innerText = data.gabriel.lider;
+                    document.getElementById('corpo_gabriel').innerHTML = data.gabriel.tabela;
+                }
+            }
+        });
+    };
 </script>
 </body>
 
@@ -1472,4 +1448,5 @@ function alternarX(celula) {
     
     </p>
 </div>
+
 </html>
