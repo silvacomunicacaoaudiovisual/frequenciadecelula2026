@@ -1386,77 +1386,64 @@
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
 
 <script>
-    // 1. CONFIGURAÇÃO ESSENCIAL (Pegue no Console do Firebase -> Configurações do Projeto)
+    // Configuração mínima - Usando apenas a sua URL
     const firebaseConfig = {
-        apiKey: "COLE_SUA_API_KEY_AQUI", 
-        authDomain: "frequenciadecelula.firebaseapp.com",
-        databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/",
-        projectId: "frequenciadecelula",
-        storageBucket: "frequenciadecelula.appspot.com",
-        appId: "COLE_SEU_APP_ID_AQUI"
+        databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/"
     };
 
-    // Inicializa o Firebase
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
+    // Inicialização
+    firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // 2. FUNÇÃO SALVAR (Mapeando os IDs do seu HTML)
+    // FUNÇÃO PARA SALVAR
     function salvarFirebase() {
-        console.log("Iniciando processo de salvamento...");
-
-        // Função auxiliar para evitar erro se o ID não existir no HTML
-        const pegarConteudo = (id) => {
-            const el = document.getElementById(id);
-            return el ? el.innerHTML : "";
-        };
-
-        const dadosParaSalvar = {
+        // Criando o objeto com os dados das 3 abas
+        const dados = {
             oziel: {
                 lider: document.getElementById('lider_oziel')?.innerText || "NOME",
-                tabela: pegarConteudo('corpo_oziel') // ID do <tbody> da tabela do Oziel
+                tabela: document.getElementById('corpo_oziel')?.innerHTML || ""
             },
             neto: {
                 lider: document.getElementById('lider_neto')?.innerText || "NOME",
-                tabela: pegarConteudo('corpo_neto') // ID do <tbody> da tabela do Neto
+                tabela: document.getElementById('corpo_neto')?.innerHTML || ""
             },
             gabriel: {
                 lider: document.getElementById('lider_gabriel')?.innerText || "NOME",
-                tabela: pegarConteudo('corpo_gabriel') // ID do <tbody> da tabela do Gabriel
-            },
-            data_atualizacao: new Date().toLocaleString('pt-BR')
+                tabela: document.getElementById('corpo_gabriel')?.innerHTML || ""
+            }
         };
 
-        // Envia para o Firebase
-        database.ref('dados_celula').set(dadosParaSalvar)
+        // Salvando no banco de dados
+        database.ref('registro_2026').set(dados)
             .then(() => {
-                alert("✨ GLÓRIA A DEUS! Dados salvos com sucesso!");
+                alert("✅ SALVO COM SUCESSO!");
             })
-            .catch((error) => {
-                alert("❌ Erro ao salvar: " + error.message);
-                console.error(error);
+            .catch((erro) => {
+                alert("❌ ERRO: Verifique se as REGRAS do Firebase estão em 'true'");
+                console.error(erro);
             });
     }
 
-    // 3. FUNÇÃO CARREGAR (Executa ao abrir a página)
+    // FUNÇÃO PARA CARREGAR AO ABRIR O SITE
     window.onload = function() {
-        database.ref('dados_celula').once('value', (snapshot) => {
+        database.ref('registro_2026').once('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                if (data.oziel && document.getElementById('corpo_oziel')) {
+                // Restaura Oziel
+                if(data.oziel && document.getElementById('corpo_oziel')) {
                     document.getElementById('lider_oziel').innerText = data.oziel.lider;
                     document.getElementById('corpo_oziel').innerHTML = data.oziel.tabela;
                 }
-                if (data.neto && document.getElementById('corpo_neto')) {
+                // Restaura Neto
+                if(data.neto && document.getElementById('corpo_neto')) {
                     document.getElementById('lider_neto').innerText = data.neto.lider;
                     document.getElementById('corpo_neto').innerHTML = data.neto.tabela;
                 }
-                if (data.gabriel && document.getElementById('corpo_gabriel')) {
+                // Restaura Gabriel
+                if(data.gabriel && document.getElementById('corpo_gabriel')) {
                     document.getElementById('lider_gabriel').innerText = data.gabriel.lider;
                     document.getElementById('corpo_gabriel').innerHTML = data.gabriel.tabela;
                 }
-                console.log("Dados restaurados com sucesso!");
             }
         });
     };
@@ -1473,4 +1460,5 @@
 </div>
 
 </html>
+
 
