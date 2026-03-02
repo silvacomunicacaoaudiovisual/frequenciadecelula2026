@@ -1380,83 +1380,46 @@
     
 
 <p class="footer-info">© DISCIPULADO ZOE - TODOS OS DIREITOS RESERVADOS.</p>
-    </div> <button class="btn-salvar" onclick="salvarRelatorio()">💾 SALVAR ALTERAÇÕES ONLINE</button>
+   </div> <div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+    <button class="btn-salvar" onclick="salvarRelatorio()">💾 SALVAR ALTERAÇÕES ONLINE</button>
 </div>
+
+<style>
+    /* Estilo específico para o botão centralizado */
+    .btn-salvar {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: background 0.3s, transform 0.2s;
+        width: 100%;
+        max-width: 500px; /* Mesma largura do seu card */
+    }
+
+    .btn-salvar:hover {
+        background-color: #219150;
+        transform: scale(1.02);
+    }
+
+    .btn-salvar:active {
+        transform: scale(0.98);
+    }
+</style>
 
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
 
 <script>
-// Configuração do Firebase
-const firebaseConfig = {
-    databaseURL: "https://frequenciadecelula-default-rtdb.firebaseio.com/"
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const dbRef = database.ref('dados_frequencia_zoe');
-
-let digitando = false;
-
-// Função Salvar
-function salvarRelatorio() {
-    const container = document.getElementById('container-geral');
-    dbRef.set({
-        html: container.innerHTML,
-        data: new Date().toLocaleString()
-    }).then(() => { alert("Salvo com sucesso!"); });
-}
-
-// Carregar Dados automaticamente
-dbRef.on('value', (snapshot) => {
-    if (digitando) return;
-    const data = snapshot.val();
-    if (data && data.html) {
-        document.getElementById('container-geral').innerHTML = data.html;
-    }
-});
-
-// Funções de Interface
-function abrirAba(evt, nomeLider) {
-    let i, content, btns;
-    content = document.getElementsByClassName("tab-content");
-    for (i = 0; i < content.length; i++) content[i].style.display = "none";
-    btns = document.getElementsByClassName("tab-btn");
-    for (i = 0; i < btns.length; i++) btns[i].classList.remove("active");
-    document.getElementById(nomeLider).style.display = "block";
-    evt.currentTarget.classList.add("active");
-    salvarRelatorio();
-}
-
-function abrirMes(evt, idMes) {
-    let i, content, btns;
-    let pai = evt.currentTarget.closest('.tab-content');
-    content = pai.getElementsByClassName("mes-content");
-    for (i = 0; i < content.length; i++) content[i].style.display = "none";
-    btns = pai.getElementsByClassName("mes-btn");
-    for (i = 0; i < btns.length; i++) btns[i].classList.remove("active");
-    document.getElementById(idMes).style.display = "block";
-    evt.currentTarget.classList.add("active");
-    salvarRelatorio();
-}
-
-function alternarPresenca(celula) {
-    if (celula.innerHTML === "") celula.innerHTML = "✅";
-    else if (celula.innerHTML === "✅") celula.innerHTML = "❌";
-    else celula.innerHTML = "";
-    salvarRelatorio();
-}
-
-function alternarX(celula) {
-    celula.innerHTML = (celula.innerHTML.trim() === "X") ? "" : "X";
-    salvarRelatorio();
-}
-
-// Monitorar Digitação
-document.addEventListener('focusin', (e) => { if (e.target.getAttribute('contenteditable')) digitando = true; });
-document.addEventListener('focusout', (e) => { if (e.target.getAttribute('contenteditable')) { digitando = false; salvarRelatorio(); } });
+    // Seus scripts de configuração do Firebase e as funções abrirAba, abrirMes, etc.
+    // ...
 </script>
 
 </body>
 </html>
+
 
