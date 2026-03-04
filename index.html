@@ -55,6 +55,20 @@
     position: relative;
     z-index: 100;
 }
+
+
+
+.rodape {
+    display: block;          /* Garante que ocupa a largura toda */
+    width: 100%;             /* Largura total da tela */
+    text-align: center;      /* Alinha o texto no centro */
+    padding: 30px 0;         /* Espaço em cima e embaixo */
+    margin-top: 50px;        /* Afasta da tabela para não grudar */
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: bold;
+    clear: both;             /* Garante que nada dos lados o empurre */
+}
     </style>
 </head>
 <body>
@@ -76,6 +90,12 @@
 </div>
 
 <button class="btn-firebase" onclick="salvarNoFirebase()">💾 SALVAR</button>
+
+<footer class="rodape">
+    © DISCIPULADO ZOE - TODOS OS DIREITOS RESERVADOS.
+</footer>
+
+
 
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
@@ -180,5 +200,6 @@
         });
     };
 </script>
+
 </body>
 </html>
