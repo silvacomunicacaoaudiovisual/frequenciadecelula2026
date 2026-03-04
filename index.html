@@ -23,7 +23,7 @@
 }
         h1 { text-align: center; color: #6f009b; text-transform: uppercase; font-size: 18px; margin-bottom: 20px; border-bottom: 3px solid #1a3a5a; padding-bottom: 10px; }
         .tab-container { display: flex; border-bottom: 2px solid #ddd; margin-bottom: 20px; gap: 5px; overflow-x: auto; }
-        .tab-btn { padding: 5px 52px; cursor: pointer; border: 1px solid #ddd; border-bottom: none; background: #f8f9fa; border-radius: 8px 8px 0 0; font-weight: bold; color: #555; white-space: nowrap; }
+        .tab-btn { padding: 5px 30px; cursor: pointer; border: 1px solid #ddd; border-bottom: none; background: #f8f9fa; border-radius: 8px 8px 0 0; font-weight: bold; color: #555; white-space: nowrap; }
         .tab-btn.active { background: #6f009b; color: white; border-color: #0099ff; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
@@ -54,7 +54,7 @@
     /* ISSO GARANTE QUE ELE APAREÇA MESMO COM ZOOM */
     position: relative;
     z-index: 100;
-}}
+}
     </style>
 </head>
 <body>
@@ -66,11 +66,13 @@
         <div class="tab-btn active" onclick="abrirAba(event, 'Oziel')">OZIEL</div>
         <div class="tab-btn" onclick="abrirAba(event, 'Neto')">NETO</div>
         <div class="tab-btn" onclick="abrirAba(event, 'Gabriel')">GABRIEL</div>
+        <div class="tab-btn" onclick="abrirAba(event, 'Edilson')">EDILSON</div>
     </div>
 
     <div id="Oziel" class="tab-content active"><div class="mes-container" id="meses_oziel"></div><div id="cont_oziel"></div></div>
     <div id="Neto" class="tab-content"><div class="mes-container" id="meses_neto"></div><div id="cont_neto"></div></div>
     <div id="Gabriel" class="tab-content"><div class="mes-container" id="meses_gabriel"></div><div id="cont_gabriel"></div></div>
+    <div id="Edilson" class="tab-content"><div class="mes-container" id="meses_edilson"></div><div id="cont_edilson"></div></div>
 </div>
 
 <button class="btn-firebase" onclick="salvarNoFirebase()">💾 SALVAR</button>
@@ -83,7 +85,7 @@
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    const lideres = ['oziel', 'neto', 'gabriel'];
+    const lideres = ['oziel', 'neto', 'gabriel', 'edilson'];
     const meses = ['Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     const siglas = ['MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
 
