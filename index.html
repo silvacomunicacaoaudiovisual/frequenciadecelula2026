@@ -122,10 +122,15 @@
 
     // Funções de clique
     function alternarP(c) {
-        if (c.innerHTML === "") { c.innerHTML = "✅"; c.style.color = "#27ae60"; }
-        else if (c.innerHTML === "✅") { c.innerHTML = "❌"; c.style.color = "#e74c3c"; }
+        if (c.innerHTML === "") { c.innerHTML = "✔"; c.style.color = "#27ae60"; }
+        else if (c.innerHTML === "✔") { c.innerHTML = "✖"; c.style.color = "#e74c3c"; }
         else c.innerHTML = "";
     }
+
+
+
+
+    
     function alternarX(c) { c.innerHTML = (c.innerHTML === "X") ? "" : "X"; c.style.color = "#27ae60"; c.style.fontWeight = "bold"; }
     
     function abrirAba(e, n) {
@@ -175,6 +180,7 @@
 </script>
 </body>
 </html>
+
 
 
 
