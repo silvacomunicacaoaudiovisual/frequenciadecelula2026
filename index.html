@@ -143,11 +143,21 @@
     gerar();
 
     // Funções de clique
-    function alternarP(c) {
-        if (c.innerHTML === "") { c.innerHTML = "✔"; c.style.color = "#27ae60"; }
-        else if (c.innerHTML === "✔") { c.innerHTML = "✖"; c.style.color = "#e74c3c"; }
-        else c.innerHTML = "";
+function alternarP(c) {
+    if (c.innerText === "") { 
+        c.innerText = "✔"; 
+        c.style.color = "#27ae60"; 
+        c.style.fontSize = "10px"; // AUMENTA O TAMANHO AQUI
+    } 
+    else if (c.innerText === "✔") { 
+        c.innerText = "✖"; 
+        c.style.color = "#e74c3c"; 
+        c.style.fontSize = "10px"; // AUMENTA O TAMANHO AQUI
+    } 
+    else { 
+        c.innerText = ""; 
     }
+}
 
 
 
