@@ -180,20 +180,31 @@ function alternarP(c) {
     }
 
     // SALVAR E CARREGAR
-    function salvarNoFirebase() {
-        const d = {};
+function salvarNoFirebase() {
+    const senhaDefinida = "dzoe"; // MODIFICA AQUI: Coloca a senha que tu quiseres
+    const senhaDigitada = prompt("Digite a senha para autorizar o salvamento:");
+
+    if (senhaDigitada === senhaDefinida) {
+        // Se a senha estiver correta, o código abaixo (que já tens) será executado
+        const data = {};
         lideres.forEach(l => {
-            d[l] = {};
+            data[l] = {};
             meses.forEach(m => {
                 const id = m.toLowerCase();
-                d[l][id] = {
+                data[l][id] = {
                     lider: document.getElementById(`lider_${l}_${id}`).innerText,
                     html: document.getElementById(`corpo_${l}_${id}`).innerHTML
                 };
             });
         });
-        database.ref('frequencia_2026').set(d).then(() => alert("✅ TUDO SALVO (MEMBROS E VISITANTES)!"));
+
+        database.ref('frequencia_2026').set(data)
+            .then(() => alert("✅ Dados salvos com sucesso!"))
+            .catch((error) => alert("❌ Erro ao salvar: " + error));
+    } else {
+        alert("⚠️ Senha incorreta! Os dados não foram salvos.");
     }
+}
 
     window.onload = function() {
         database.ref('frequencia_2026').once('value', (s) => {
@@ -213,6 +224,7 @@ function alternarP(c) {
 
 </body>
 </html>
+
 
 
 
