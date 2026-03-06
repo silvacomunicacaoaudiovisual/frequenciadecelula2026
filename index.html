@@ -164,7 +164,16 @@ function alternarP(c) {
 
 
     
-    function alternarX(c) { c.innerHTML = (c.innerHTML === "X") ? "" : "X"; c.style.color = "#6f009b"; c.style.fontWeight = "bold"; }
+    function alternarX(c) {
+    if (c.innerText === "") { 
+        c.innerText = "X"; 
+        c.style.color = "#6f009b"; // Vermelho
+        c.style.fontSize = "15px";  // MESMO TAMANHO DO OUTRO
+        c.style.fontWeight = "bold";
+    } else { 
+        c.innerText = ""; 
+    }
+}
     
     function abrirAba(e, n) {
         document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
