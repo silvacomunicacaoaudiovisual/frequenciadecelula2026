@@ -69,6 +69,18 @@
     font-weight: bold;
     clear: both;             /* Garante que nada dos lados o empurre */
 }
+
+/* Força as colunas BAT, CUR e CTL a serem idênticas */
+th:nth-child(3), th:nth-child(4), th:nth-child(5),
+td:nth-child(7), td:nth-child(8), td:nth-child(9) {
+    width: 35px !important;    /* Largura fixa */
+    max-width: 35px;
+    min-width: 35px;
+    text-align: center;
+    font-size: 14px !important; /* Tamanho padronizado do X */
+    padding: 4px 0 !important;
+}
+
     </style>
 </head>
 <body>
