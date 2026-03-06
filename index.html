@@ -193,9 +193,10 @@ function salvarNoFirebase() {
             meses.forEach(m => {
                 const id = m.toLowerCase();
                 data[l][id] = {
-                    lider: document.getElementById(`lider_${l}_${id}`).innerText,
-                    html: document.getElementById(`corpo_${l}_${id}`).innerHTML
-                };
+    lider: document.getElementById(`lider_${l}_${id}`).innerText,
+    dataMult: document.getElementById(`data_${l}_${id}`).value, // SALVA A DATA
+    html: document.getElementById(`corpo_${l}_${id}`).innerHTML
+};
             });
         });
 
@@ -214,9 +215,10 @@ function salvarNoFirebase() {
                 lideres.forEach(l => { if(data[l]) meses.forEach(m => {
                     const id = m.toLowerCase();
                     if(data[l][id]) {
-                        document.getElementById(`lider_${l}_${id}`).innerText = data[l][id].lider;
-                        document.getElementById(`corpo_${l}_${id}`).innerHTML = data[l][id].html;
-                    }
+    document.getElementById(`lider_${l}_${id}`).innerText = data[l][id].lider;
+    document.getElementById(`data_${l}_${id}`).value = data[l][id].dataMult || ""; // CARREGA A DATA
+    document.getElementById(`corpo_${l}_${id}`).innerHTML = data[l][id].html;
+}
                 })});
             }
         });
@@ -225,3 +227,8 @@ function salvarNoFirebase() {
 
 </body>
 </html>
+
+
+
+
+
