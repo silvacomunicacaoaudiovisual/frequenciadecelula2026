@@ -124,7 +124,8 @@
             <div id="${l}${m}" class="mes-content ${i===0?'active':''}">
                 <div class="info-header">
                     <span>LÍDER EM TREINAMENTO: <strong contenteditable="true" id="lider_${l}_${m.toLowerCase()}">NOME</strong></span>
-                    <span>DIA DA CÉLULA: ${diaSemana}</span>
+                    
+                    <span>DATA DA MULTIPLICAÇÃO: <input type="date" id="data_${l}_${m.toLowerCase()}" class="input-data"></span>
                 </div>
                 <table>
                     <thead><tr><th>NOME</th><th colspan="5">PRESENÇA</th><th>BAT</th><th>CUR</th><th>CTL</th></tr></thead>
@@ -224,8 +225,3 @@ function salvarNoFirebase() {
 
 </body>
 </html>
-
-
-
-
-
